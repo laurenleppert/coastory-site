@@ -190,7 +190,7 @@ SHELL = """<!doctype html>
     <a href="/privacy/">Privacy</a>
     <a href="/terms/">Terms</a>
     <a href="/delete-account/">Delete account</a>
-    <a href="mailto:support@coastory.app">Support</a>
+    <a href="/support/">Support</a>
   </nav>
 </header>
 <main class="doc">

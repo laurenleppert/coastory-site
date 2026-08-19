@@ -76,3 +76,11 @@ th { color: var(--ink-soft); font-weight: 600; }
 .pillar { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.2rem; }
 .pillar h2 { font-size: 1.05rem; margin: 0 0 0.35rem; }
 .pillar p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
+
+/* Narrow phones: the four nav links overflow a 375px header and the last one
+   clips off-screen. Stack the nav under the wordmark rather than shrinking
+   the type — it keeps every link reachable and the tap targets full size. */
+@media (max-width: 30rem) {
+  .site-header { flex-direction: column; align-items: flex-start; gap: 0.55rem; }
+  .site-header nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
+}
