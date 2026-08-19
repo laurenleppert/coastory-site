@@ -40,6 +40,8 @@ LINK_REWRITES = {
     "privacy-policy.md": "/privacy/",
     "./terms-of-service.md": "/terms/",
     "terms-of-service.md": "/terms/",
+    "[PRIVACY URL]": "/privacy/",
+    "[ACCOUNT DELETION URL]": "/delete-account/",
 }
 
 
@@ -187,6 +189,7 @@ SHELL = """<!doctype html>
   <nav>
     <a href="/privacy/">Privacy</a>
     <a href="/terms/">Terms</a>
+    <a href="/delete-account/">Delete account</a>
     <a href="mailto:support@coastory.app">Support</a>
   </nav>
 </header>
@@ -194,7 +197,7 @@ SHELL = """<!doctype html>
 {body}
 </main>
 <footer class="site-footer">
-  <p>Coastory is made by Velocicoder Studios. <a href="mailto:support@coastory.app">support@coastory.app</a></p>
+  <p>Coastory is made by Velocicoder. <a href="mailto:support@coastory.app">support@coastory.app</a></p>
 </footer>
 </body>
 </html>

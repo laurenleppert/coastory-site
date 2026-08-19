@@ -5,6 +5,7 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
 - `/` — landing page (`index.html`, hand-written)
 - `/privacy` — Privacy Policy, rendered from the app repo
 - `/terms` — Terms of Service, rendered from the app repo
+- `/delete-account` — Google Play's required web account-deletion resource (hand-written)
 
 ## Updating the legal pages
 
