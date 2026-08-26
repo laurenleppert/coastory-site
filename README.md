@@ -6,6 +6,28 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
 - `/privacy` — Privacy Policy, rendered from the app repo
 - `/terms` — Terms of Service, rendered from the app repo
 - `/delete-account` — Google Play's required web account-deletion resource (hand-written)
+- `/support` — Apple's required Support URL (hand-written)
+
+## Assets
+
+- `img/*.webp` — **real screenshots from the app**, captured on the iOS simulator
+  against the `dev_seed` "Globetrotter" persona. Never mock up a Coastory screen
+  for this site: if a screenshot is out of date, take a new one. Capture notes
+  (Play's 2:1 dimension rule, the DEBUG banner, demo mode) live in the app repo's
+  session memory under `reference-capturing-store-screenshots`.
+- `img/og.jpg` — 1200x630 social preview, referenced by the Open Graph and
+  Twitter card tags. Regenerate it if the hero wording changes.
+- `img/mark.webp` — the 36px header wordmark icon. `icon.png` stays the favicon
+  and apple-touch-icon (it must remain >=180px for iOS), so the header uses this
+  small copy instead of shipping 36 KB for a 36-pixel image.
+- `fonts/*.woff2` — Nunito and Fraunces, the app's own faces
+  (`lib/core/theme/coastory_typography.dart`), subset to Latin plus the
+  punctuation this site uses. Both are SIL OFL 1.1. They are what make the site
+  read as the same product as the app, and they are preloaded on the landing
+  page.
+
+The landing page carries **no JavaScript at all** and weighs ~283 KB with every
+image loaded. Keep it that way: if a change needs a script, question the change.
 
 ## Updating the legal pages
 

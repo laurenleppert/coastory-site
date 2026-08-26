@@ -1,18 +1,50 @@
 /* coastory.app — the palette is the app's own (lib/core/theme/coastory_colors.dart). */
+
+/* The app's own faces, subset to Latin + the punctuation this site uses.
+   Nunito is the app's UI family, Fraunces its display/"almanac head" serif
+   (lib/core/theme/coastory_typography.dart). Both SIL OFL 1.1. Serving them
+   here is what makes the site read as the same product as the app. */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito.woff2') format('woff2-variations');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/fraunces.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --brand: #ff5436;
   --fact: #0c9fb0;
+  /* --fact is the app's teal and stays the accent; as *text* on the cream
+     ground it only reaches 3.0:1, so links get a darkened cut. */
+  --link: #077483;
   --ground: #fff7f0;
   --surface: #ffffff;
   --ink: #2a2233;
-  --ink-soft: #7a6c82;
-  --ink-faint: #a99cb0;
+  /* Both muted levels clear 4.5:1 on the tinted band (#fff1e6), which is
+     darker than the page ground and was where the old values fell short. */
+  --ink-soft: #625669;
+  --ink-faint: #756781;
   --line: rgba(42, 34, 51, 0.12);
   --note-bg: #fff1e6;
   --note-edge: #ffb59f;
+  --shot-frame: rgba(42, 34, 51, 0.16);
+  --shot-shadow: rgba(42, 34, 51, 0.22);
+  --band: #fff1e6;
+
+  --ui: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --display: 'Fraunces', Iowan Old Style, Georgia, 'Times New Roman', serif;
 }
 @media (prefers-color-scheme: dark) {
   :root {
+    --link: #34cfdc;
     --ground: #100b25;
     --surface: #1a1433;
     --ink: #fff7f0;
@@ -21,6 +53,9 @@
     --line: rgba(255, 247, 240, 0.14);
     --note-bg: #2a1a26;
     --note-edge: #6b3a2f;
+    --shot-frame: rgba(255, 247, 240, 0.18);
+    --shot-shadow: rgba(0, 0, 0, 0.55);
+    --band: #1a1433;
   }
 }
 * { box-sizing: border-box; }
@@ -29,26 +64,47 @@ body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 17px/1.6 var(--ui);
+  overflow-x: hidden;
 }
-a { color: var(--fact); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 a:hover { color: var(--brand); }
+img { max-width: 100%; }
 code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--line); padding: 0.05em 0.35em; border-radius: 4px; }
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip link — the landing page leads with a nav CTA, so keyboard users get a
+   way past the header straight to the content. */
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--surface); color: var(--ink);
+  padding: 0.6rem 1rem; border-radius: 0 0 10px 0; z-index: 10;
+}
+.skip:focus { left: 0; }
 
 .site-header {
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  max-width: 44rem; margin: 0 auto; padding: 1.1rem 1.25rem;
+  max-width: 62rem; margin: 0 auto; padding: 1.1rem 1.25rem;
 }
-.brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.01em; }
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.01em; }
 .brand img { border-radius: 9px; }
 .site-header nav { display: flex; gap: 1.1rem; font-size: 0.95rem; }
 .site-header nav a { color: var(--ink-soft); text-decoration: none; }
 .site-header nav a:hover { color: var(--brand); }
+/* Specific enough to beat `.site-header nav a` — otherwise the CTA inherits
+   muted ink on to a coral fill and drops to 1.5:1. */
+.site-header nav a.nav-btn { color: #241c16; }
+.site-header nav a.nav-btn:hover { color: #241c16; }
 
 .doc { max-width: 44rem; margin: 0 auto; padding: 0.5rem 1.25rem 4rem; }
-.doc h1 { font-size: 2.1rem; line-height: 1.15; margin: 1rem 0 1.25rem; letter-spacing: -0.01em; }
-.doc h2 { font-size: 1.35rem; margin: 2.2rem 0 0.6rem; }
-.doc h3 { font-size: 1.08rem; margin: 1.6rem 0 0.4rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; }
+.doc h1 { font-family: var(--display); font-size: 2.1rem; line-height: 1.15; margin: 1rem 0 1.25rem; letter-spacing: -0.01em; }
+.doc h2 { font-family: var(--display); font-size: 1.35rem; margin: 2.2rem 0 0.6rem; }
+.doc h3 { margin: 1.6rem 0 0.4rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; }
 .doc p, .doc li { margin: 0.6rem 0; }
 .doc ul { padding-left: 1.3rem; }
 .doc li { margin: 0.45rem 0; }
@@ -64,47 +120,158 @@ table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
 th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
 th { color: var(--ink-soft); font-weight: 600; }
 
-.site-footer { max-width: 44rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; color: var(--ink-faint); font-size: 0.9rem; border-top: 1px solid var(--line); }
+.site-footer { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; color: var(--ink-faint); font-size: 0.9rem; border-top: 1px solid var(--line); }
+.site-footer a { color: var(--ink-faint); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.1rem 0.6rem; margin: 0 0 0.5rem; padding: 0; list-style: none; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.5rem; }
 
-/* Landing page */
-.hero { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 2rem; text-align: center; }
-.hero img { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 10px 30px rgba(0,0,0,0.18); }
-.hero h1 { font-size: 2.6rem; line-height: 1.1; margin: 1.2rem 0 0.6rem; letter-spacing: -0.02em; }
-.hero p.lede { font-size: 1.2rem; color: var(--ink-soft); margin: 0 auto 1.4rem; max-width: 34rem; }
-.hero .status { display: inline-block; padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--note-bg); border: 1px solid var(--note-edge); font-size: 0.9rem; color: var(--ink); }
-.pillars { max-width: 44rem; margin: 1.5rem auto 0; padding: 0 1.25rem; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
-.pillar { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.2rem; }
-.pillar h2 { font-size: 1.05rem; margin: 0 0 0.35rem; }
+/* ---------------------------------------------------------------- landing */
+
+.wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+.section { padding-block: 3.5rem; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.85rem; border-radius: 999px;
+  background: var(--note-bg); border: 1px solid var(--note-edge);
+  font-size: 0.86rem; font-weight: 700; color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); flex: none; }
+
+h1, h2, h3 { font-family: var(--display); }
+
+/* Buttons. The primary is coral with dark ink, which is the app's own button
+   treatment — white on coral is only 3.2:1 and would fail AA at this size. */
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 52px; padding: 0.8rem 1.5rem;
+  border-radius: 999px; border: 1.5px solid transparent;
+  font: 700 1.02rem/1.2 var(--ui); text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary { background: var(--brand); color: #241c16; }
+.btn-primary:hover { background: #ff6d53; color: #241c16; transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--shot-frame); }
+.btn-secondary:hover { border-color: var(--brand); color: var(--ink); transform: translateY(-1px); }
+.btn small { display: block; font-weight: 600; font-size: 0.78rem; opacity: 0.75; }
+
+/* Hero */
+.hero { padding-block: 1rem 2.5rem; }
+.hero-grid { display: grid; gap: 2.5rem; align-items: center; }
+.hero h1 {
+  font-size: clamp(2.3rem, 8.5vw, 3.5rem);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin: 1.1rem 0 0.9rem; text-wrap: balance;
+}
+.hero .lede { font-size: 1.14rem; color: var(--ink-soft); margin: 0 0 1.6rem; max-width: 34rem; }
+.hero .fineprint { color: var(--ink-faint); font-size: 0.88rem; margin: 1rem 0 0; }
+
+/* A screenshot, framed so it reads as a phone screen on either page theme. */
+.phone {
+  display: block; width: 100%; height: auto;
+  border-radius: 22px;
+  border: 1px solid var(--shot-frame);
+  box-shadow: 0 18px 44px -12px var(--shot-shadow);
+  background: #100b25;
+}
+.phone-hold { max-width: 300px; margin: 0 auto; }
+
+/* "You decide what counts" */
+.counts { background: var(--band); border-block: 1px solid var(--line); }
+.counts-grid { display: grid; gap: 2rem; align-items: center; }
+.counts h2 { font-size: clamp(1.9rem, 6.5vw, 2.6rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 1rem; text-wrap: balance; }
+.counts p { color: var(--ink-soft); margin: 0 0 1rem; max-width: 34rem; }
+.pull {
+  margin: 1.4rem 0 0; padding: 0.9rem 1.15rem;
+  border-left: 3px solid var(--brand);
+  font-family: var(--display); font-size: 1.06rem; color: var(--ink);
+}
+.pull cite { display: block; margin-top: 0.35rem; font: 600 0.82rem var(--ui); color: var(--ink-faint); font-style: normal; }
+
+/* Showcase */
+.section-title,
+.showcase h2 { font-size: clamp(1.7rem, 5.5vw, 2.1rem); margin: 0 0 2rem; letter-spacing: -0.01em; }
+.shots { display: grid; gap: 2.75rem; }
+/* Each of these screens has empty space below its content, and the three end
+   at different points. Crop to one frame so the row reads as a set and no shot
+   trails off into background. */
+.shot .phone { aspect-ratio: 66 / 114; object-fit: cover; object-position: top center; }
+/* The globe screen's chrome sits right on the default crop line and gets
+   sliced in half. Start the crop just below it. */
+.shot .phone.hold-center { object-position: center 60%; }
+.shot h3 { font-size: 1.16rem; margin: 1.1rem 0 0.4rem; }
+.shot p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
+
+/* Why Coastory */
+.pillars { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.pillar { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.25rem; }
+.pillar h3 { font-size: 1.05rem; margin: 0 0 0.35rem; }
 .pillar p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
 
-/* Narrow phones: the four nav links overflow a 375px header and the last one
-   clips off-screen. Stack the nav under the wordmark rather than shrinking
-   the type — it keeps every link reachable and the tap targets full size. */
+/* Beta */
+.beta { background: var(--band); border-block: 1px solid var(--line); }
+.beta h2 { font-size: clamp(1.8rem, 6vw, 2.4rem); margin: 0 0 0.9rem; letter-spacing: -0.015em; }
+.beta .intro { color: var(--ink-soft); max-width: 38rem; margin: 0 0 2rem; }
+.beta-cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+.beta-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.35rem 1.4rem; }
+.beta-card h3 { font-size: 1.15rem; margin: 0 0 0.15rem; }
+.beta-card .plat { color: var(--ink-faint); font-size: 0.85rem; margin: 0 0 1rem; }
+.beta-card .btn { width: 100%; }
+.steps { margin: 1rem 0 0; padding: 0 0 0 1.15rem; color: var(--ink-faint); font-size: 0.88rem; }
+.steps li { margin: 0.35rem 0; }
+.steps a { color: var(--link); }
+.beta .after { color: var(--ink-faint); font-size: 0.9rem; margin: 1.5rem 0 0; max-width: 38rem; }
+
+/* Closing invitation */
+.closer { text-align: center; padding-block: 4rem 4.5rem; }
+.closer h2 { font-size: clamp(2rem, 7vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 0.7rem; text-wrap: balance; }
+.closer p { color: var(--ink-soft); margin: 0 auto 1.6rem; max-width: 30rem; }
+.closer .cta-row { justify-content: center; }
+
+/* --------------------------------------------------------------- wider up */
+
+@media (min-width: 46rem) {
+  .hero { padding-block: 2rem 3rem; }
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 3rem; }
+  .phone-hold { max-width: 320px; }
+  .counts-grid { grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; }
+  .counts-grid .phone-hold { order: -1; }
+  .shots { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  /* Align image / heading / body across the three columns, so a heading that
+     wraps to two lines doesn't push its own body text out of step. */
+  @supports (grid-template-rows: subgrid) {
+    .shots { grid-template-rows: auto auto auto; }
+    .shot { display: grid; grid-row: span 3; grid-template-rows: subgrid; gap: 0; }
+    .shot h3 { align-self: start; }
+  }
+  .section { padding-block: 4.5rem; }
+}
+
+/* Narrow phones: the doc pages' four nav links overflow a 375px header and the
+   last one clips off-screen. Stack the nav under the wordmark rather than
+   shrinking the type — it keeps every link reachable and the tap targets full
+   size. The landing page's single CTA does not need this, hence :not(). */
 @media (max-width: 30rem) {
-  .site-header { flex-direction: column; align-items: flex-start; gap: 0.55rem; }
-  .site-header nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
+  .site-header:not(.header-cta) { flex-direction: column; align-items: flex-start; gap: 0.55rem; }
+  .site-header:not(.header-cta) nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
+  .header-cta .nav-btn { padding: 0.55rem 1rem; font-size: 0.92rem; min-height: 44px; }
+  .cta-row .btn { width: 100%; }
 }
 
-/* "Get Coastory" — store/beta entry points. Deliberately NOT Apple's or
-   Google's official badge artwork: those carry their own brand rules, and
-   plain buttons in Coastory's palette sidestep that entirely. Swap in the
-   official badges at public launch if wanted. */
-.get { max-width: 44rem; margin: 0.5rem auto 0; padding: 0 1.25rem; text-align: center; }
-.get h2 { font-size: 1.5rem; margin: 0 0 0.35rem; }
-.get .get-lede { color: var(--ink-soft); margin: 0 0 1.1rem; }
-.get-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-.store-btn {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem;
-  min-width: 13.5rem; padding: 0.7rem 1.15rem;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-  text-decoration: none; color: var(--ink);
+.nav-btn {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0.55rem 1.1rem; border-radius: 999px;
+  background: var(--brand); color: #241c16;
+  font: 700 0.95rem var(--ui); text-decoration: none; white-space: nowrap;
 }
-.store-btn:hover { border-color: var(--brand); color: var(--ink); }
-.store-sup { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.02em; }
-.store-main { font-size: 1.05rem; font-weight: 700; }
-.get-note { color: var(--ink-faint); font-size: 0.88rem; margin: 0.9rem 0 0; }
+.nav-btn:hover { background: #ff6d53; color: #241c16; }
 
-/* A step that exists but is not yet joinable — reads as a state, not a button. */
-.store-btn-soon { opacity: 0.55; cursor: default; }
-.store-btn-soon:hover { border-color: var(--line); }
-.get-row-soon { margin-top: 0.75rem; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
