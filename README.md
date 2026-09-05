@@ -11,10 +11,25 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
 ## Assets
 
 - `img/*.webp` — **real screenshots from the app**, captured on the iOS simulator
-  against the `dev_seed` "Globetrotter" persona. Never mock up a Coastory screen
-  for this site: if a screenshot is out of date, take a new one. Capture notes
-  (Play's 2:1 dimension rule, the DEBUG banner, demo mode) live in the app repo's
-  session memory under `reference-capturing-store-screenshots`.
+  (iPhone 17 Pro Max, 1320x2868, downscaled 50% to 660x1434) against a `dev_seed`
+  persona. Never mock up a Coastory screen for this site: if a screenshot is out
+  of date, take a new one. Capture notes (Play's 2:1 dimension rule, the DEBUG
+  banner, demo mode) live in the app repo's session memory under
+  `reference-capturing-store-screenshots`.
+
+  **Which persona depends on the shot, so check the screen before reshooting.**
+  `profile.webp` — the hero — is **Cass the Completionist**, not Globetrotter:
+  it shows 197 credits and a Canada's Wonderland Top 3, and Globetrotter has
+  neither. This line used to say Globetrotter for all of them, which would have
+  sent a reshoot to the wrong persona.
+
+  The hero's **Top 3 is picked by hand on the device before capture** — nothing
+  seeds it. Coastory never derives a Top 3 from ratings and must not start; it
+  is the rider's own choice. But a marketing shot should still not show a #1
+  rated below a #3, which is exactly what a rider wrote in about on 2026-08-31
+  (CSTRY-577). Pick three whose ratings descend. The current shot is Leviathan
+  91 / Behemoth 87 / Kingda Ka 86, scrolled down slightly so the search button
+  does not clip the third row's park name.
 - `img/og.jpg` — 1200x630 social preview, referenced by the Open Graph and
   Twitter card tags. Regenerate it if the hero wording changes.
 - `img/mark.webp` — the 36px header wordmark icon. `icon.png` stays the favicon
