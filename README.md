@@ -30,6 +30,18 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
   (CSTRY-577). Pick three whose ratings descend. The current shot is Leviathan
   91 / Behemoth 87 / Kingda Ka 86, scrolled down slightly so the search button
   does not clip the third row's park name.
+- **Photo provenance for the two screenshots that contain a photograph** — both
+  are CC0 1.0 from Wikimedia Commons by Christophe Badoux, checked at source:
+  `ride.webp`'s header is [Rita (Alton Towers).JPG](https://commons.wikimedia.org/wiki/File:Rita_(Alton_Towers).JPG)
+  (16 Aug 2012, filed under *Rita (roller coaster)*; the app repo bundles it as
+  `assets/dev_seed/photos/coaster_01.jpg`), and `park.webp`'s header is his
+  photo of the Towers and gardens. Neither is seeded by the Completionist
+  persona both shots come from — they were added on-device before capture.
+  This used to live only in a commit message (`72dbe18`), which is why an
+  audit that started from `LICENSES.md` could not account for the gardens.
+  **Never pair a seeded sample photo with a named real coaster** — `694c873`
+  withdrew a Baron 1898 shot whose "photo" was Acorn Adventure in Malaysia.
+
 - `img/og.jpg` — 1200x630 social preview, referenced by the Open Graph and
   Twitter card tags. Regenerate it if the hero wording changes.
 - `img/mark.webp` — the 36px header wordmark icon. `icon.png` stays the favicon
