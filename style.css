@@ -196,13 +196,8 @@ h1, h2, h3 { font-family: var(--display); }
 .section-title,
 .showcase h2 { font-size: clamp(1.7rem, 5.5vw, 2.1rem); margin: 0 0 2rem; letter-spacing: -0.01em; }
 .shots { display: grid; gap: 2.75rem; }
-/* Each of these screens has empty space below its content, and the three end
-   at different points. Crop to one frame so the row reads as a set and no shot
-   trails off into background. */
-.shot .phone { aspect-ratio: 66 / 114; object-fit: cover; object-position: top center; }
-/* The globe screen's chrome sits right on the default crop line and gets
-   sliced in half. Start the crop just below it. */
-.shot .phone.hold-center { object-position: center 60%; }
+/* Preserve each native screenshot in full, including its navigation. */
+.shot .phone { aspect-ratio: 660 / 1434; object-fit: contain; }
 .shot h3 { font-size: 1.16rem; margin: 1.1rem 0 0.4rem; }
 .shot p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
 

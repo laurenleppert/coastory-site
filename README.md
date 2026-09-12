@@ -10,37 +10,30 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
 
 ## Assets
 
-- `img/*.webp` — **real screenshots from the app**, captured on the iOS simulator
-  (iPhone 17 Pro Max, 1320x2868, downscaled 50% to 660x1434) against a `dev_seed`
-  persona. Never mock up a Coastory screen for this site: if a screenshot is out
-  of date, take a new one. Capture notes (Play's 2:1 dimension rule, the DEBUG
-  banner, demo mode) live in the app repo's session memory under
-  `reference-capturing-store-screenshots`.
-
-  **Which persona depends on the shot, so check the screen before reshooting.**
-  `profile.webp` — the hero — is **Cass the Completionist**, not Globetrotter:
-  it shows 197 credits and a Canada's Wonderland Top 3, and Globetrotter has
-  neither. This line used to say Globetrotter for all of them, which would have
-  sent a reshoot to the wrong persona.
-
-  The hero's **Top 3 is picked by hand on the device before capture** — nothing
-  seeds it. Coastory never derives a Top 3 from ratings and must not start; it
-  is the rider's own choice. But a marketing shot should still not show a #1
-  rated below a #3, which is exactly what a rider wrote in about on 2026-08-31
-  (CSTRY-577). Pick three whose ratings descend. The current shot is Leviathan
-  91 / Behemoth 87 / Kingda Ka 86, scrolled down slightly so the search button
-  does not clip the third row's park name.
-- **Photo provenance for the two screenshots that contain a photograph** — both
-  are CC0 1.0 from Wikimedia Commons by Christophe Badoux, checked at source:
-  `ride.webp`'s header is [Rita (Alton Towers).JPG](https://commons.wikimedia.org/wiki/File:Rita_(Alton_Towers).JPG)
-  (16 Aug 2012, filed under *Rita (roller coaster)*; the app repo bundles it as
-  `assets/dev_seed/photos/coaster_01.jpg`), and `park.webp`'s header is his
-  photo of the Towers and gardens. Neither is seeded by the Completionist
-  persona both shots come from — they were added on-device before capture.
-  This used to live only in a commit message (`72dbe18`), which is why an
-  audit that started from `LICENSES.md` could not account for the gardens.
-  **Never pair a seeded sample photo with a named real coaster** — `694c873`
-  withdrew a Baron 1898 shot whose "photo" was Acorn Adventure in Malaysia.
+- `img/*-2026-09.jpg` are genuine captures of Coastory 0.9.3 (18), taken
+  September 12, 2026. The hero uses Lauren’s own Pixel profile with her permission.
+  Its native capture is 1206x2410 and the website copy is 660x1319. No rider photos
+  appear on that profile screen.
+- The other five captures use the fictional Cass the Completionist sample in a
+  fresh, isolated iPhone 17 Pro Max simulator. Native 1320x2868 captures are
+  downscaled to 660x1434. The screenshot build uses source `675274fe` with only the
+  debug banner hidden. Store apps and Lauren’s personal profiles were preserved.
+  Demo status bars show 9:41 and a full battery; temporary overrides are cleared
+  after each capture. JPEG conversion and proportional resizing are the only
+  post-processing. The website displays each screenshot in full.
+- The Racer example was recreated through the app: Red and Blue ridden, counted
+  together once, and Backwards experienced but recorded in history only. This adds
+  one credit after the milestone capture, so the two sample totals differ by one.
+- Photo provenance: the Rita and Alton Towers photographs are **CC0 1.0** by
+  Christophe Badoux, dated August 16, 2012, verified on Wikimedia Commons:
+  [Rita (Alton Towers).JPG](https://commons.wikimedia.org/wiki/File:Rita_(Alton_Towers).JPG)
+  and [Castle Alton Towers.JPG](https://commons.wikimedia.org/wiki/File:Castle_Alton_Towers.JPG).
+  They were added only to the isolated sample account. Rita’s framing uses the
+  app’s own cover controls. Never pair an unrelated sample photo with a named ride.
+- Previous `.webp` screenshots remain as historical assets, no longer referenced
+  by the landing page. Reshoot actual screens when designs change; do not mock up
+  replacement app UI. Use Lauren’s profile only for the profile shot, and fictional
+  data with verified image sources for the remaining shots.
 
 - `img/og.jpg` — 1200x630 social preview, referenced by the Open Graph and
   Twitter card tags. Regenerate it if the hero wording changes.
@@ -53,8 +46,7 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
   read as the same product as the app, and they are preloaded on the landing
   page.
 
-The landing page carries **no JavaScript at all** and weighs ~283 KB with every
-image loaded. Keep it that way: if a change needs a script, question the change.
+The landing page carries **no JavaScript at all**. Keep it that way: if a change needs a script, question the change.
 
 ## Updating the legal pages
 
