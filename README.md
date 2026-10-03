@@ -30,13 +30,16 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
   and [Castle Alton Towers.JPG](https://commons.wikimedia.org/wiki/File:Castle_Alton_Towers.JPG).
   They were added only to the isolated sample account. Rita’s framing uses the
   app’s own cover controls. Never pair an unrelated sample photo with a named ride.
-- Previous `.webp` screenshots remain as historical assets, no longer referenced
-  by the landing page. Reshoot actual screens when designs change; do not mock up
-  replacement app UI. Use Lauren’s profile only for the profile shot, and fictional
+- Previous `.webp` screenshots remain as historical assets; `profile.webp` is
+  still used in the social preview. Reshoot actual screens when designs change;
+  do not mock up replacement app UI. Use Lauren’s profile only for the profile shot, and fictional
   data with verified image sources for the remaining shots.
 
-- `img/og.jpg` — 1200x630 social preview, referenced by the Open Graph and
-  Twitter card tags. Regenerate it if the hero wording changes.
+- `img/og-open-beta.jpg` — 1200x630 social preview, referenced by the Open Graph
+  and Twitter card tags. Its editable source is `img/og.html`; render it through
+  the local site server at a 1200x630 viewport and capture the full viewport.
+  Regenerate it if the hero or beta wording changes, and use a new image filename
+  when publishing so social services can fetch the updated preview.
 - `img/mark.webp` — the 36px header wordmark icon. `icon.png` stays the favicon
   and apple-touch-icon (it must remain >=180px for iOS), so the header uses this
   small copy instead of shipping 36 KB for a 36-pixel image.
