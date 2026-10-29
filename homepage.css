@@ -63,3 +63,15 @@
   .home-short .short-row-image-first > :last-child { order: -1; }
   .home-short .short-closing { padding-block: 3rem 4rem; }
 }
+
+/* Meal plans: two phones side by side in the image column, the second a
+   step lower, in the order they happen. */
+.home-short .short-row > .short-pair {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  width: min(100%, 26rem); margin-inline: auto; align-items: start;
+}
+.home-short .short-pair > :last-child { margin-top: 2.5rem; }
+@media (min-width: 46rem) {
+  .home-short .short-meal .short-row-image-first { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+  .home-short .short-row > .short-pair { width: min(100%, 32rem); }
+}
