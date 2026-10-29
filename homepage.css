@@ -1,0 +1,65 @@
+/* The wide tier board follows the day and profile exports on this page. */
+@media (min-width: 46rem) {
+  @supports (grid-template-rows: subgrid) {
+    .share .share-wide { margin-top: 2.25rem; }
+  }
+}
+
+/* Shorter homepage. Every rule is scoped so the saved longer preview keeps
+   the layout it had before this comparison. */
+.home-short .hero { padding-block: 1rem 2.75rem; }
+.home-short .section { padding-block: 3rem; }
+.home-short .short-row { display: grid; gap: 1.75rem; align-items: center; }
+.home-short .short-row > div { min-width: 0; }
+.home-short .short-row > picture,
+.home-short .short-row > .short-export,
+.home-short .short-row > .short-shot { width: min(100%, 18.75rem); margin-inline: auto; }
+.home-short .short-row h2 {
+  margin: 0 0 0.85rem; color: var(--ink);
+  font: var(--type-title-small); letter-spacing: -0.02em; text-wrap: balance;
+}
+.home-short .short-row p {
+  max-width: 35rem; margin: 0; color: var(--ink-soft); font: var(--type-prose);
+}
+.home-short .short-row p + p { margin-top: 0.85rem; }
+.home-short .short-row .short-example { color: var(--ink); font-weight: 800; }
+.home-short .short-export {
+  display: block; height: auto; border-radius: var(--radius-panel);
+  border: 1px solid var(--shot-frame);
+}
+.home-short .short-shot { margin-block: 0; }
+.home-short .short-shot figcaption {
+  margin-top: 0.65rem; color: var(--ink-soft); font: var(--type-meta);
+}
+.home-short .short-row .short-catalog {
+  margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid var(--line);
+  font: var(--type-body);
+}
+.home-short .short-closing { padding-block: 2.75rem 3.75rem; }
+.home-short .short-closing .app-invitation { padding: 1.5rem; }
+.home-short .short-closing .short-ownership {
+  max-width: 42rem; margin-top: 1.1rem; padding-top: 1rem;
+  border-top: 1px solid var(--line); color: var(--ink);
+  font-weight: 700;
+}
+.home-short .short-faq { max-width: 45rem; margin: 2rem auto 0; }
+.home-short .short-faq h3 { margin: 0 0 0.7rem; font: var(--type-section); }
+.home-short .short-faq details { border-top: 1px solid var(--line); }
+.home-short .short-faq details:last-child { border-bottom: 1px solid var(--line); }
+.home-short .short-faq summary {
+  padding: 0.9rem 0.35rem; cursor: pointer; color: var(--ink);
+  font: var(--type-item);
+}
+.home-short .short-faq details p {
+  max-width: 38rem; margin: 0 0 1rem 1.25rem;
+  color: var(--ink-soft); font: var(--type-body);
+}
+
+@media (min-width: 46rem) {
+  .home-short .hero { padding-block: 1.75rem 3.5rem; }
+  .home-short .section { padding-block: 3.5rem; }
+  .home-short .short-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 3rem; }
+  .home-short .short-row-image-first { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .home-short .short-row-image-first > :last-child { order: -1; }
+  .home-short .short-closing { padding-block: 3rem 4rem; }
+}

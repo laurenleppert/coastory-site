@@ -3,22 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Support — Coastory</title>
+<title>Support | Coastory</title>
 <meta name="description" content="Get help with Coastory: contact support, report a problem, fix something the catalog got wrong, and answers to common questions.">
 <link rel="icon" href="/icon.png">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
-  <a class="brand" href="/"><img src="/icon.png" alt="" width="36" height="36"><span>Coastory</span></a>
-  <nav>
-    <a href="/privacy/">Privacy</a>
-    <a href="/terms/">Terms</a>
-    <a href="/delete-account/">Delete account</a>
-    <a href="/support/">Support</a>
+  <a class="brand" href="/"><img src="/img/mark.webp" alt="" width="80" height="80" decoding="async"><span>Coastory</span></a>
+  <nav aria-label="Primary">
+    <a class="nav-link" href="/support/" aria-current="page">Support</a>
+    <a class="nav-link" href="/">About Coastory</a>
   </nav>
 </header>
-<main class="doc">
+<main id="main" class="doc">
 <h1>Support</h1>
 <p>Coastory is made by one person. Email reaches her directly, and she reads all of it.</p>
 
@@ -28,15 +27,16 @@
 </blockquote>
 
 <h2 id="report-a-problem">Report a problem from inside the app</h2>
-<p>If something is broken, the fastest route is <strong>Menu → Help &amp; support → Report an Issue</strong>. It sends along which screen you were on, which saves a round of back-and-forth.</p>
+<p>If something is broken, the fastest route is <strong>Menu &rarr; Help &amp; support &rarr; Report an Issue</strong>. It sends along the screen you were on and the few before it, which saves a round of back-and-forth. If you&rsquo;re signed in to an Account, it carries your Account id too.</p>
 <p>Reports are not public. We and the service providers described in the Privacy Policy, including our AI tools, may process them to help resolve what you send.</p>
 
 <h2 id="catalog">Something missing or wrong in the catalog</h2>
-<p>The coaster and park catalog is hand-curated, so it will always be a little behind the real world. Two things you can do, and they are different:</p>
+<p>The coaster and park catalog is researched with AI assistance and checked by one person, so it will always be a little behind the real world. Two things you can do, and they are different:</p>
 <ul>
-  <li><strong>Keep logging right now.</strong> If a coaster or park isn't there, add it yourself — <em>Add coaster</em> on a park's page, or <em>Add park</em> from search. It goes into your own collection immediately. You never have to wait for us to catch up.</li>
-  <li><strong>Suggest a catalog correction.</strong> On a park or coaster, use <strong>Suggest a correction</strong>, or <em>Report a missing park</em> / <em>Report a missing coaster</em>. Suggestions are reviewed before they go into the shared catalog, so one report doesn't overwrite a fact for everybody else.</li>
+  <li><strong>Keep logging right now.</strong> If a coaster or park isn't there, add it yourself: <em>Add a coaster</em> on a park's page, or <em>Add it yourself</em> when a search finds nothing, where you can also type in a park the catalog doesn't have. It goes into your own collection immediately. You never have to wait for us to catch up.</li>
+  <li><strong>Suggest a catalog correction.</strong> On a park or coaster page, tap <strong>Suggest a correction</strong>, or use <em>Report a missing park</em> / <em>Report a missing coaster</em> when a search finds nothing. Suggestions are reviewed before they go into the shared catalog, so one report doesn't overwrite a fact for everybody else.</li>
 </ul>
+<p>Not in the app? Email the correction to <a href="mailto:support@coastory.app">support@coastory.app</a> with the park or coaster name.</p>
 
 <h2 id="common-questions">Common questions</h2>
 
@@ -44,7 +44,7 @@
 <p>No account is needed to log rides. An optional Account adds a best-effort cloud copy of your text history so you can recover it on another phone. Photos are not included.</p>
 
 <h3 id="signin">I never got my sign-in code</h3>
-<p>Signing in sends a code by email — there is no password. If it hasn't arrived, check your spam folder for mail from <code>coastory.app</code>, then request a new code. If it still doesn't turn up, email us and we'll look at it from our side.</p>
+<p>Signing in sends a code by email; there is no password. If it hasn't arrived, check your spam folder for mail from <code>coastory.app</code>, then request a new code. If it still doesn't turn up, email us and we'll look at it from our side.</p>
 
 <h3 id="photos">Are my photos backed up?</h3>
 <p>Coastory does not upload your photos to its servers. A manual backup file includes your photos and the record of which ride each belongs to. Open <strong>Menu → Backup &amp; restore → Back up now</strong> and keep the file somewhere other than this phone. Your phone's own backup or device transfer is separate; see the <a href="/privacy/">Privacy Policy</a>.</p>
@@ -56,13 +56,27 @@
 <p>See <a href="/delete-account/">Delete your Coastory Account</a>. Open <strong>Menu → Backup &amp; restore → Delete Account</strong>, or <strong>Settings → Data &amp; account → Backup &amp; restore → Delete Account</strong>. You can also email us from the address on the Account.</p>
 
 <h3 id="offline">Does Coastory work without a signal?</h3>
-<p>Mostly, yes — your history lives on the device, so logging a ride doesn't wait on a connection. We don't promise it, though: full offline support isn't built yet, and we'd rather say so than have you find out at the back of a park.</p>
+<p>Mostly, yes: your history lives on the device, so logging a ride doesn't wait on a connection. We don't promise it, though: full offline support isn't built, and we'd rather say so than have you find out at the back of a park.</p>
+
+<h2 id="beta">The beta</h2>
+<p>Coastory needs iOS 14 or later on iPhone, and Android 7.0 or later.</p>
+<ul>
+  <li><strong>iPhone:</strong> TestFlight invitations expire; if yours has, ask for a new one at <a href="mailto:support@coastory.app">support@coastory.app</a>.</li>
+  <li><strong>Android:</strong> If the Play listing does not show the beta, email <a href="mailto:support@coastory.app">support@coastory.app</a>.</li>
+</ul>
 
 <h2 id="privacy">Privacy and terms</h2>
 <p>What Coastory collects and why is in the <a href="/privacy/">Privacy Policy</a>. The <a href="/terms/">Terms of Service</a> cover the rest.</p>
 </main>
 <footer class="site-footer">
-  <p>Coastory is made by Velocicoder. <a href="mailto:support@coastory.app">support@coastory.app</a></p>
+  <ul class="footer-links">
+    <li><a href="/privacy/">Privacy</a></li>
+    <li><a href="/terms/">Terms</a></li>
+    <li><a href="/support/">Support</a></li>
+    <li><a href="/delete-account/">Delete account</a></li>
+  </ul>
+  <p><a href="mailto:support@coastory.app">support@coastory.app</a></p>
+  <p>Coastory is independent and not affiliated with or endorsed by any park, chain or manufacturer.</p>
 </footer>
 </body>
 </html>

@@ -14,175 +14,145 @@
 <meta property="og:url" content="https://coastory.app/">
 <meta property="og:title" content="Coastory: your credits, your rules, your story">
 <meta property="og:description" content="A roller coaster tracking app for enthusiasts. Log every coaster you've ridden, decide what counts as a credit, rate your favorites, and keep the park days behind the rides. Open beta on Android; iPhone beta through TestFlight.">
-<meta property="og:image" content="https://coastory.app/img/og-open-beta.jpg">
+<meta property="og:image" content="https://coastory.app/img/og-2026-10-29.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Coastory. Your credits, your rules, your story. A phone showing a rider profile with 197 credits across 19 parks in 14 countries.">
+<meta property="og:image:alt" content="Coastory. Your credits, your rules, your story. A phone showing a rider's Coastory profile: a cover photo of a coaster against Mount Fuji, 359 credits, and a Top 3 of Hakugei, Steel Vengeance and The Beast.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Coastory: your credits, your rules, your story">
 <meta name="twitter:description" content="A roller coaster tracking app for enthusiasts. You decide what counts. Open beta on Android; iPhone beta through TestFlight.">
-<meta name="twitter:image" content="https://coastory.app/img/og-open-beta.jpg">
+<meta name="twitter:image" content="https://coastory.app/img/og-2026-10-29.jpg">
+<meta name="twitter:image:alt" content="Coastory. Your credits, your rules, your story. A phone showing a rider's Coastory profile: a cover photo of a coaster against Mount Fuji, 359 credits, and a Top 3 of Hakugei, Steel Vengeance and The Beast.">
 
 <link rel="icon" href="/icon.png">
 <link rel="apple-touch-icon" href="/icon.png">
 <link rel="preload" href="/fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/homepage.css">
 </head>
-<body>
+<body class="home-short">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header header-cta">
-  <a class="brand" href="/"><img src="/img/mark.webp" alt="" width="36" height="36" decoding="async"><span>Coastory</span></a>
+<header class="site-header">
+  <a class="brand" href="/"><img src="/img/mark.webp" alt="" width="80" height="80" decoding="async"><span>Coastory</span></a>
   <nav aria-label="Primary">
+    <a class="nav-link" href="/support/">Support</a>
     <a class="nav-btn" href="#beta">Join the beta</a>
   </nav>
 </header>
 
 <main id="main">
 
-  <!-- What it is ------------------------------------------------------- -->
+  <!-- A coaster tracker built around the rider ------------------------- -->
   <section class="hero wrap">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Beta &middot; iPhone and Android</p>
-        <h1>Your credits. Your rules. Your story.</h1>
-        <p class="lede">A roller coaster tracking app for enthusiasts. Log the coasters you&rsquo;ve ridden, count them your way, and keep the park days behind the rides.</p>
+        <p class="eyebrow">Beta &middot; iPhone and Android</p>
+        <h1><span>Your credits.</span> <span>Your rules.</span> <span>Your story.</span></h1>
+        <p class="lede">A roller coaster tracker for enthusiasts. Keep your ride history, count credits your way, and remember the days behind them.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#iphone">Join the iPhone beta</a>
+          <a class="btn btn-primary" href="https://testflight.apple.com/join/esCwytSH">Join the iPhone beta</a>
           <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.velocicoder.coastory">Get the Android beta</a>
         </div>
         <p class="fineprint">Free. No ads. No account required.</p>
       </div>
-      <div class="phone-hold">
-        <img class="phone" src="/img/profile-2026-09.jpg" width="660" height="1319" fetchpriority="high" decoding="async"
-             alt="Lauren’s Coastory profile, showing 349 credits, parks visited, and her three favorite coasters.">
-      </div>
+      <picture class="hero-phone">
+        <source media="(prefers-color-scheme: light)" srcset="/img/profile-2026-10-29-light.jpg" width="660" height="1434">
+        <img class="phone" src="/img/profile-2026-10-29.jpg" width="660" height="1434" fetchpriority="high" decoding="async"
+             alt="A rider's Coastory profile: a cover photo of a coaster against Mount Fuji, 359 credits, and a Top 3 of Hakugei, Steel Vengeance and The Beast.">
+      </picture>
     </div>
   </section>
 
-  <!-- Why it's different ----------------------------------------------- -->
-  <section class="counts section" id="counts">
-    <div class="wrap counts-grid">
+  <!-- A concrete credit choice ----------------------------------------- -->
+  <section class="short-credit band section" id="counts" aria-labelledby="counts-heading">
+    <div class="wrap short-row short-row-image-first">
       <div>
-        <h2>You decide what counts.</h2>
-        <p>Enthusiasts don&rsquo;t always agree on what counts as a credit. Racing sides, re-themes, the kiddie one you rode because it was the last coaster in the park you hadn&rsquo;t yet ridden - everybody draws the line somewhere different.</p>
-        <p>Coastory doesn&rsquo;t draw it for you. It records what you rode, exactly as it happened, and leaves the counting to you.</p>
-        <blockquote class="pull">
-          Three experiences. One credit. Your rules.
-          <cite>The Racer at Kings Island races a Red side and a Blue side, both straight from the catalog. Did you ride it when it raced backwards? Add that and record it as well. Three experiences on the record, counted as however many credits you say.</cite>
-        </blockquote>
+        <h2 id="counts-heading">You decide what counts.</h2>
+        <p class="short-example">Red and Blue count as one. Backwards counts as one more.</p>
+        <p>On this rider&rsquo;s Racer, all three experiences stay on the record. The two credits are their choice. Yours can be different.</p>
       </div>
-      <div class="phone-hold">
-        <img class="phone" src="/img/credit-2026-09.jpg" width="660" height="1434" loading="lazy" decoding="async"
-             alt="The Racer credit controls: Red and Blue are both ridden and count together as one credit. A Backwards experience stays in the history without adding another credit.">
-      </div>
+      <picture>
+        <source media="(prefers-color-scheme: light)" srcset="/img/credit-2026-10-29-light.jpg" width="660" height="1434">
+        <img class="phone" src="/img/credit-2026-10-29.jpg" width="660" height="1434" loading="lazy" decoding="async"
+             alt="The Racer's page in Coastory: ridden, rated B, its Red and Blue sides and a Backwards ride all checked, counted as two credits.">
+      </picture>
     </div>
   </section>
 
-  <!-- The facts are ours, the story is yours -------------------------- -->
-  <section class="counts plain section" id="yours">
-    <div class="wrap counts-grid">
+  <!-- At the park ------------------------------------------------------- -->
+  <section class="short-feature section ruled" aria-labelledby="park-heading">
+    <div class="wrap short-row">
       <div>
-        <h2>The facts are ours. The story is yours.</h2>
-        <p>Coastory brings what can be looked up: height, drop, speed, model, ride time, the records a coaster set. Thousands of coasters from parks around the world, and growing. We&rsquo;re continually adding new rides while researching the ones already here.</p>
-        <p>Everything else on the page is yours. The score, in your own words underneath it, and <strong>your own photos</strong>. Your photos take priority on a ride&rsquo;s page, keeping your own view of the coaster alongside your story.</p>
-        <blockquote class="pull">
-          Kept on this device and never uploaded.
-          <cite>The app&rsquo;s own words when you add one. Your photos stay on your phone, tied to the ride they belong to, and a backup is what carries them to a new one.</cite>
-        </blockquote>
+        <h2 id="park-heading">Useful at the park.</h2>
+        <p>At supported parks, live waits can help you choose where to walk next, with the feed&rsquo;s update time and provider shown. Keep your pass ready to scan, see meals remaining and when the next one is available.</p>
       </div>
-      <div class="phone-hold">
-        <img class="phone" src="/img/ride-2026-09.jpg" width="660" height="1434" loading="lazy" decoding="async"
-             alt="Rita at Alton Towers, showing a sample cover photo, a rating of 55 out of 100, and the rider note: Short, but that launch never gets old.">
-      </div>
+      <figure class="short-shot">
+        <img class="phone" src="/img/dollywood-live-waits-2026-10-25.png" width="1320" height="2868" loading="lazy" decoding="async"
+             alt="Dollywood's coaster list with Visual cards off, posted waits beside rides, and a ThemeParks.wiki update timestamp.">
+      </figure>
     </div>
   </section>
 
-  <!-- What accumulates ------------------------------------------------- -->
-  <section class="showcase section wrap">
-    <h2>What builds up over time</h2>
-    <div class="shots">
-      <div class="shot">
-        <img class="phone" src="/img/milestones-2026-09.jpg" width="660" height="1434" loading="lazy" decoding="async"
-             alt="The Milestones screen: Corkscrew as credit 1, Galactica as 10, Black Hole as 25, Leviathan as 50, and three credits to go until 200.">
-        <h3>Milestones worth naming</h3>
-        <p>Your 1st, your 10th, your 100th. Say which ride each one was and Coastory keeps the ladder as you climb it, including the one you are still counting toward.</p>
+  <!-- A real Adventure export ------------------------------------------ -->
+  <section class="short-day band section" aria-labelledby="day-heading">
+    <div class="wrap short-row short-row-image-first">
+      <div>
+        <h2 id="day-heading">Keep the day. Share what you choose.</h2>
+        <p>Add your own notes and photos to rides. Record a day&rsquo;s rides and repeat laps in an Adventure, then choose entries for a timeline to save or send.</p>
       </div>
-      <div class="shot">
-        <img class="phone" src="/img/park-2026-09.jpg" width="660" height="1434" loading="lazy" decoding="async"
-             alt="Alton Towers with a sample photo of the gardens, 13 of 18 rides ridden, and 13 credits under the sample rider’s counting rules.">
-        <h3>Parks you keep coming back to</h3>
-        <p>Every park counts what you&rsquo;ve ridden there and what you haven&rsquo;t, so a return visit has a list waiting. Give it a photo and it stops being a row in a database.</p>
-      </div>
-      <div class="shot">
-        <img class="phone" src="/img/globe-2026-09.jpg" width="660" height="1434" loading="lazy" decoding="async"
-             alt="The Coastory globe with visited countries lit in turquoise, including the United States, Canada, Japan, and Australia.">
-        <h3>See how far you&rsquo;ve been</h3>
-        <p>Every country you&rsquo;ve ridden in, lit up and counted. Spin it, zoom in, and tap a country to go back through the parks you visited there.</p>
-      </div>
+      <img class="short-export" src="/img/share-day-2026-10-21.jpg" width="680" height="1284" loading="lazy" decoding="async"
+           alt="A rider's Kings Island day as an exported timeline: eight rides on five coasters in order, including both laps on Orion and three on The Beast, ending with a note.">
     </div>
   </section>
 
-  <!-- What it won't do to you ------------------------------------------ -->
-  <section class="section wrap" aria-labelledby="why">
-    <h2 id="why" class="section-title">Why Coastory</h2>
-    <div class="pillars">
-      <div class="pillar">
-        <h3>Facts stay facts</h3>
-        <p>What you rode and when is recorded exactly as it happened. What it&rsquo;s worth is a separate question, and that one is yours.</p>
+  <!-- Depth by choice --------------------------------------------------- -->
+  <section class="short-depth section ruled" aria-labelledby="depth-heading">
+    <div class="wrap short-row">
+      <div>
+        <h2 id="depth-heading">Go deeper if you want.</h2>
+        <p>Choose your rating scale and your own Top 3. Explore statistics and milestones, or spin Airtime Atlas, a globe that lights up where you&rsquo;ve ridden. Use the parts you want; a plain ride list is complete.</p>
       </div>
-      <div class="pillar">
-        <h3>Everything is optional</h3>
-        <p>Ratings, rankings, tiers, statistics. Use the ones you care about and ignore the rest. A park is fine untiered.</p>
-      </div>
-      <div class="pillar">
-        <h3>The ones that are gone still count</h3>
-        <p>The catalog keeps closed and demolished coasters, with the years they ran. A credit from 1991 doesn&rsquo;t disappear because the ride did.</p>
-      </div>
-      <div class="pillar">
-        <h3>Your history is yours</h3>
-        <p>Bring your ride list in from a CSV or TSV file, see what matched, save when you say so. Write it all back out to a backup you keep, photos included.</p>
-      </div>
+      <figure class="short-shot">
+        <picture>
+          <source media="(prefers-color-scheme: light)" srcset="/img/rankings-2026-10-21-light.jpg" width="660" height="1434">
+          <img class="phone" src="/img/rankings-2026-10-21.jpg" width="660" height="1434" loading="lazy" decoding="async"
+               alt="A rider's letter-tier ratings: The Beast, Hakugei and Steel Vengeance in S+, with more coasters in S.">
+        </picture>
+        <figcaption>Your ratings, grouped by tier.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Why join now, and how -------------------------------------------- -->
-  <section class="beta section" id="beta">
+  <!-- Join and common questions ---------------------------------------- -->
+  <section class="closing short-closing section ruled" id="beta" aria-labelledby="beta-heading">
     <div class="wrap">
-      <h2>Help shape Coastory</h2>
-      <p class="intro">Coastory is built by a coaster enthusiast, for coaster enthusiasts, because the apps that already existed didn&rsquo;t count the way enthusiasts actually count. It&rsquo;s now in open beta on Android, with an iPhone beta through TestFlight: you get it early, you find the weird stuff, and you get a say in what happens next.</p>
-
-      <div class="beta-cards">
-        <div class="beta-card" id="iphone">
-          <h3>iPhone</h3>
-          <p class="plat">Through TestFlight</p>
-          <a class="btn btn-primary" href="https://testflight.apple.com/join/esCwytSH">Join the iPhone beta</a>
-          <ol class="steps">
-            <li>Tap the button. TestFlight opens, installing itself first if you don&rsquo;t have it.</li>
-            <li>Accept the invitation and install Coastory. That&rsquo;s the whole thing.</li>
-          </ol>
-        </div>
-
-        <div class="beta-card" id="android">
-          <h3>Android</h3>
-          <p class="plat">Open beta on Google Play</p>
-          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.velocicoder.coastory">Get the Android beta</a>
-          <p>Open Coastory on Google&nbsp;Play and install the beta.</p>
-        </div>
+      <div class="app-invitation">
+        <h2 id="beta-heading">Take Coastory on your next park day.</h2>
+        <p>Log your rides, count credits your way, and save a timeline of the day. Built by a coaster enthusiast. Free beta on Android and through TestFlight on iPhone.</p>
+        <p class="app-actions"><a id="iphone" href="https://testflight.apple.com/join/esCwytSH">Join the iPhone beta</a><a id="android" href="https://play.google.com/store/apps/details?id=com.velocicoder.coastory">Get the Android beta</a></p>
+        <p class="short-ownership">Your history stays yours: bring in a ridden list, take out a CSV, and keep a manual backup with photos.</p>
       </div>
-
-      <p class="after">Both are free, ad-free, and work without an account. There&rsquo;s a <strong>Report an Issue</strong> button inside the app. It goes straight to the person building it, and it is read.</p>
-    </div>
-  </section>
-
-  <!-- Join ------------------------------------------------------------- -->
-  <section class="closer wrap">
-    <h2>Your coaster story starts here.</h2>
-    <p>However many credits you&rsquo;re on, and however you count them.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://testflight.apple.com/join/esCwytSH">iPhone beta</a>
-      <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=com.velocicoder.coastory">Android beta</a>
+      <div class="short-faq">
+        <h3>Good to know</h3>
+        <details>
+          <summary>Can I bring my old ride list?</summary>
+          <p>Import ridden coasters from a CSV or TSV file, review the matches, then choose when to save. Ratings, dates, notes and photos from that file are not imported.</p>
+        </details>
+        <details>
+          <summary>What can I take out?</summary>
+          <p>Export your ride history as a CSV file. A separate manual Coastory backup includes your photos and which rides they belong to, for restoring in Coastory.</p>
+        </details>
+        <details>
+          <summary>Where do my photos go?</summary>
+          <p>Coastory does not upload the photos you add. They stay on this device unless you choose to export or share them. Your phone&rsquo;s own backup or transfer may also carry them.</p>
+        </details>
+        <details>
+          <summary>How do I install on iPhone?</summary>
+          <p>Use the iPhone beta button above. TestFlight guides you through installing it first if needed, then accepting the invitation.</p>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -195,7 +165,8 @@
     <li><a href="/support/">Support</a></li>
     <li><a href="/delete-account/">Delete account</a></li>
   </ul>
-  <p>Coastory is made by Velocicoder. <a href="mailto:support@coastory.app">support@coastory.app</a></p>
+  <p><a href="mailto:support@coastory.app">support@coastory.app</a></p>
+  <p>Coastory is independent and not affiliated with or endorsed by any park, chain or manufacturer.</p>
 </footer>
 </body>
 </html>

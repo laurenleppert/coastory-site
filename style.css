@@ -1,9 +1,13 @@
-/* coastory.app — the palette is the app's own (lib/core/theme/coastory_colors.dart). */
+/* coastory.app. The palette is the app's own (lib/core/theme/coastory_colors.dart).
+   This file owns the tokens, the type scale, the shared header and footer, the
+   closing invitation, the landing page and the doc pages. catalog.css layers
+   the Coaster Catalog over it. */
 
 /* The app's own faces, subset to Latin + the punctuation this site uses.
    Nunito is the app's UI family, Fraunces its display/"almanac head" serif
    (lib/core/theme/coastory_typography.dart). Both SIL OFL 1.1. Serving them
-   here is what makes the site read as the same product as the app. */
+   here is what makes the site read as the same product as the app.
+   License text and copyright lines: fonts/OFL.txt. */
 @font-face {
   font-family: 'Nunito';
   src: url('/fonts/nunito.woff2') format('woff2-variations');
@@ -19,8 +23,16 @@
   font-display: swap;
 }
 
+/* ---------------------------------------------------------------- tokens */
+
 :root {
   --brand: #ff5436;
+  /* Coral as text (hover and current state): the fill stays --brand. */
+  --brand-ink: #c0351c;
+  /* Dark ink on a coral fill: the app's own button treatment. White on coral
+     is only 3.2:1. */
+  --on-brand: #241c16;
+  --brand-hover: #ff6d53;
   --fact: #0c9fb0;
   /* --fact is the app's teal and stays the accent; as *text* on the cream
      ground it only reaches 3.0:1, so links get a darkened cut. */
@@ -36,11 +48,52 @@
   --note-bg: #fff1e6;
   --note-edge: #ffb59f;
   --shot-frame: rgba(42, 34, 51, 0.16);
-  --shot-shadow: rgba(42, 34, 51, 0.22);
   --band: #fff1e6;
+  /* One raised step for reference panels (facts, a feature, an invitation)
+     and one stronger rule for where a section starts. Shared with the
+     catalog. */
+  --surface-raised: #ffffff;
+  --line-strong: rgba(42, 34, 51, 0.24);
 
   --ui: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --display: 'Fraunces', Iowan Old Style, Georgia, 'Times New Roman', serif;
+
+  /* Type roles, one scale for the whole site (shared with catalog.css).
+     Fraunces carries titles, section starts, feature headlines and big
+     figures; Nunito carries everything a visitor scans or reads, including
+     the name of a park or ride in any list (the app's own rule). */
+  --type-title: 600 clamp(2.5rem, 5.2vw, 3.75rem)/1.04 var(--display);
+  --type-title-small: 600 clamp(2rem, 3.6vw, 2.6rem)/1.08 var(--display);
+  --type-section: 600 1.5rem/1.2 var(--display);
+  --type-feature: 600 clamp(1.6rem, 2.4vw, 1.95rem)/1.15 var(--display);
+  --type-figure: 500 1.7rem/1.1 var(--display);
+  --type-item: 700 1.0625rem/1.3 var(--ui);
+  --type-body: 400 1rem/1.65 var(--ui);
+  --type-prose: 400 1.0625rem/1.7 var(--ui);
+  --type-meta: 400 0.875rem/1.45 var(--ui);
+  --type-small: 400 0.8125rem/1.45 var(--ui);
+  --type-label: 700 0.82rem/1.3 var(--ui);
+  /* A figure inside a row (a count beside a list name), in the display face. */
+  --type-count: 500 1rem/1 var(--display);
+  /* Shape. One panel radius, one control radius, one thumbnail radius,
+     pills for actions, and a device corner for phone captures (a device,
+     not a panel). */
+  --radius-panel: 12px;
+  --radius-control: 8px;
+  --radius-thumb: 6px;
+  --radius-device: 22px;
+  --measure: 43rem;
+  /* The shared frame: the header and the footer are one width on every page
+     (the catalog's), with one side gutter. The catalog's shells fill the
+     frame. The landing's content column (--column) and the doc pages'
+     measure are narrower and centered inside it, so on a wide screen their
+     edges sit inside the header's, not on them. */
+  --frame-max: 1248px;
+  --column: 62rem;
+  --gutter: 1.25rem;
+}
+@media (min-width: 41rem) {
+  :root { --gutter: 1.5rem; }
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -49,223 +102,388 @@
     --surface: #1a1433;
     --ink: #fff7f0;
     --ink-soft: #cbbfd6;
-    --ink-faint: #8f829c;
+    --ink-faint: #9a8da7;
+    --brand-ink: #ff5436;
     --line: rgba(255, 247, 240, 0.14);
     --note-bg: #2a1a26;
     --note-edge: #6b3a2f;
     --shot-frame: rgba(255, 247, 240, 0.18);
-    --shot-shadow: rgba(0, 0, 0, 0.55);
     --band: #1a1433;
+    --surface-raised: #241c3f;
+    --line-strong: rgba(255, 247, 240, 0.26);
   }
 }
+
+/* ---------------------------------------------------------------- base */
+
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 17px/1.6 var(--ui);
+  font: var(--type-body);
   overflow-x: hidden;
 }
 a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-a:hover { color: var(--brand); }
+a:hover { color: var(--brand-ink); }
 img { max-width: 100%; }
+picture { display: block; }
 code { font: 0.92em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--line); padding: 0.05em 0.35em; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); }
 
+/* The ring is coral as text (--brand-ink): plain coral is about 3:1 on the
+   cream ground. In dark mode --brand-ink is the coral itself. */
 :focus-visible {
-  outline: 3px solid var(--brand);
+  outline: 3px solid var(--brand-ink);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Skip link — the landing page leads with a nav CTA, so keyboard users get a
-   way past the header straight to the content. */
+/* Skip link: the header leads with navigation, so keyboard users get a way
+   past it straight to the content. */
 .skip {
   position: absolute; left: -9999px; top: 0;
   background: var(--surface); color: var(--ink);
-  padding: 0.6rem 1rem; border-radius: 0 0 10px 0; z-index: 10;
+  padding: 0.6rem 1rem; border-radius: 0 0 var(--radius-control) 0; z-index: 10;
 }
 .skip:focus { left: 0; }
 
-.site-header {
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  max-width: 62rem; margin: 0 auto; padding: 1.1rem 1.25rem;
-}
-.brand { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--ink); text-decoration: none; font-weight: 800; font-size: 1.15rem; letter-spacing: 0.01em; }
-.brand img { border-radius: 9px; }
-.site-header nav { display: flex; gap: 1.1rem; font-size: 0.95rem; }
-.site-header nav a { color: var(--ink-soft); text-decoration: none; }
-.site-header nav a:hover { color: var(--brand); }
-/* Specific enough to beat `.site-header nav a` — otherwise the CTA inherits
-   muted ink on to a coral fill and drops to 1.5:1. */
-.site-header nav a.nav-btn { color: #241c16; }
-.site-header nav a.nav-btn:hover { color: #241c16; }
+/* ---------------------------------------------------------------- header */
 
-.doc { max-width: 44rem; margin: 0 auto; padding: 0.5rem 1.25rem 4rem; }
-.doc h1 { font-family: var(--display); font-size: 2.1rem; line-height: 1.15; margin: 1rem 0 1.25rem; letter-spacing: -0.01em; }
-.doc h2 { font-family: var(--display); font-size: 1.35rem; margin: 2.2rem 0 0.6rem; }
-.doc h3 { margin: 1.6rem 0 0.4rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; }
+/* One header on every page: the mark, the nav with the current item marked,
+   and either the beta pill (landing) or "The app" (elsewhere). One width and
+   one gutter everywhere, so the mark never moves between pages. */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem 1rem;
+  max-width: var(--frame-max); margin: 0 auto; padding: 1.1rem var(--gutter);
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px;
+  color: var(--ink); text-decoration: none;
+  font: var(--type-item); font-weight: 800; letter-spacing: 0.01em;
+}
+.brand img { width: 36px; height: 36px; border-radius: var(--radius-control); flex: none; }
+.site-header nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.15rem 1.1rem; }
+.site-header nav a { color: var(--ink-soft); text-decoration: none; }
+.site-header nav a.nav-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0.5rem 0.1rem;
+  border-bottom: 2px solid transparent;
+  font-weight: 800; white-space: nowrap;
+}
+.site-header nav a.nav-link:hover { color: var(--brand-ink); }
+.site-header nav a.nav-link[aria-current] { color: var(--ink); border-bottom-color: var(--brand); }
+/* Specific enough to beat `.site-header nav a`: the CTA keeps dark ink on its
+   coral fill. */
+.site-header nav a.nav-btn,
+.site-header nav a.nav-btn:hover { color: var(--on-brand); }
+.nav-btn {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0.55rem 1.1rem; border-radius: 999px;
+  background: var(--brand); color: var(--on-brand);
+  font: var(--type-body); font-weight: 800; text-decoration: none; white-space: nowrap;
+}
+.nav-btn:hover { background: var(--brand-hover); }
+
+/* ---------------------------------------------------------------- footer */
+
+/* The footer box is the frame's content column, so its rule and its text
+   share the header's edges; the links' tap padding hangs outside that edge. */
+.site-footer {
+  width: calc(100% - 2 * var(--gutter)); max-width: calc(var(--frame-max) - 2 * var(--gutter));
+  margin: 0 auto; padding: 1.5rem 0 3rem;
+  color: var(--ink-faint); font: var(--type-meta); border-top: 1px solid var(--line);
+}
+.site-footer a { color: var(--ink-faint); }
+.site-footer a:hover { color: var(--brand-ink); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0.1rem 0.6rem; margin: 0 0 0.5rem -0.5rem; padding: 0; list-style: none; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.5rem; }
+.site-footer p { margin: 0; }
+.site-footer p a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ---------------------------------------------------------------- actions */
+
+/* Pills. One size for every action pill on the landing (the header's beta
+   pill stays at 44px): the primary is coral with dark ink (the app's own
+   button), the secondary and the app actions are outlined. The catalog sets
+   its own invitation pills at its chip size. */
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.btn,
+.app-actions a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 48px; padding: 0.6rem 1.35rem;
+  border-radius: 999px; border: 1.5px solid transparent;
+  font: 700 1rem/1.2 var(--ui); text-decoration: none; white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary { background: var(--brand); color: var(--on-brand); }
+.btn-primary:hover { background: var(--brand-hover); color: var(--on-brand); }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-secondary:hover { border-color: var(--brand); color: var(--ink); }
+
+.app-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.9rem 0 0; }
+.app-actions a { border-color: var(--line-strong); background: transparent; color: var(--ink); }
+.app-actions a:hover { border-color: var(--brand); color: var(--ink); }
+
+/* ---------------------------------------------------------------- invitation */
+
+/* The one closing invitation, shared with the catalog: one raised step, one
+   border, one panel radius, no shadow. */
+.app-invitation {
+  padding: 1.3rem 1.5rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface-raised);
+}
+.app-invitation h2 { margin: 0 0 0.5rem; font: var(--type-section); letter-spacing: -0.01em; color: var(--ink); }
+.app-invitation p { max-width: 40rem; margin: 0; color: var(--ink-soft); font: var(--type-body); }
+.app-invitation .app-actions { max-width: none; margin-top: 1.1rem; }
+
+/* ---------------------------------------------------------------- doc pages */
+
+.doc { max-width: var(--measure); margin: 0 auto; padding: 0.5rem var(--gutter) 4rem; box-sizing: content-box; }
+.doc h1 { font: var(--type-title-small); letter-spacing: -0.02em; margin: 1rem 0 1.25rem; text-wrap: balance; }
+.doc h2 { font: var(--type-section); letter-spacing: -0.01em; margin: 2.4rem 0 0.6rem; }
+.doc h3 { font: var(--type-item); margin: 1.8rem 0 0.35rem; color: var(--ink); }
 .doc p, .doc li { margin: 0.6rem 0; }
 .doc ul { padding-left: 1.3rem; }
 .doc li { margin: 0.45rem 0; }
 .doc blockquote {
   margin: 1.2rem 0; padding: 0.9rem 1.1rem;
-  background: var(--note-bg); border-left: 4px solid var(--note-edge); border-radius: 6px;
-  color: var(--ink); font-size: 0.95rem;
+  background: var(--note-bg); border-left: 4px solid var(--note-edge); border-radius: var(--radius-control);
+  color: var(--ink);
 }
 .doc blockquote p { margin: 0; }
 .doc hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
 .table-wrap { overflow-x: auto; margin: 1rem 0; }
-table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+table { border-collapse: collapse; width: 100%; font: var(--type-meta); }
 th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
-th { color: var(--ink-soft); font-weight: 600; }
+th { color: var(--ink-soft); font-weight: 700; }
 
-.site-footer { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; color: var(--ink-faint); font-size: 0.9rem; border-top: 1px solid var(--line); }
-.site-footer a { color: var(--ink-faint); }
-.footer-links { display: flex; flex-wrap: wrap; gap: 0.1rem 0.6rem; margin: 0 0 0.5rem; padding: 0; list-style: none; }
-.footer-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.5rem; }
+/* A short ruled list of links (the 404 page). */
+.doc .link-list { margin: 1.5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+.doc .link-list li { margin: 0; border-bottom: 1px solid var(--line); }
+.link-list a {
+  display: flex; flex-direction: column; justify-content: center; min-height: 56px; padding: 0.6rem 0;
+  color: var(--ink); font: var(--type-item); text-decoration: none;
+}
+.link-list a span { color: var(--ink-soft); font: var(--type-meta); }
+.link-list a:hover { color: var(--brand-ink); }
 
 /* ---------------------------------------------------------------- landing */
 
-.wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+.wrap { max-width: var(--column); margin: 0 auto; padding: 0 var(--gutter); }
 .section { padding-block: 3.5rem; }
+/* A section starts with a rule, as in the catalog. The rule runs on the
+   content column, the text's own edges, never edge to edge; the header and
+   footer keep the wider frame. Bands carry their own edge instead. */
+.ruled { position: relative; }
+.ruled::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: calc(min(100%, var(--column)) - 2 * var(--gutter));
+  border-top: 1px solid var(--line-strong);
+}
+.section-heading { margin: 0 0 0.5rem; font: var(--type-section); letter-spacing: -0.01em; }
+
+/* The eyebrow is a tinted label, not a control: no border, so it does not
+   read as a third pill beside the two below it. */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 0.5rem;
+  margin: 0;
   padding: 0.35rem 0.85rem; border-radius: 999px;
-  background: var(--note-bg); border: 1px solid var(--note-edge);
-  font-size: 0.86rem; font-weight: 700; color: var(--ink);
-  letter-spacing: 0.01em;
+  background: var(--note-bg);
+  font: var(--type-label); color: var(--ink);
 }
-.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brand); flex: none; }
 
-h1, h2, h3 { font-family: var(--display); }
-
-/* Buttons. The primary is coral with dark ink, which is the app's own button
-   treatment — white on coral is only 3.2:1 and would fail AA at this size. */
-.cta-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  min-height: 52px; padding: 0.8rem 1.5rem;
-  border-radius: 999px; border: 1.5px solid transparent;
-  font: 700 1.02rem/1.2 var(--ui); text-decoration: none;
-  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-}
-.btn-primary { background: var(--brand); color: #241c16; }
-.btn-primary:hover { background: #ff6d53; color: #241c16; transform: translateY(-1px); }
-.btn-secondary { background: transparent; color: var(--ink); border-color: var(--shot-frame); }
-.btn-secondary:hover { border-color: var(--brand); color: var(--ink); transform: translateY(-1px); }
-.btn small { display: block; font-weight: 600; font-size: 0.78rem; opacity: 0.75; }
-
-/* Hero */
-.hero { padding-block: 1rem 2.5rem; }
-.hero-grid { display: grid; gap: 2.5rem; align-items: center; }
-.hero h1 {
-  font-size: clamp(2.3rem, 8.5vw, 3.5rem);
-  line-height: 1.05; letter-spacing: -0.02em;
-  margin: 1.1rem 0 0.9rem; text-wrap: balance;
-}
-.hero .lede { font-size: 1.14rem; color: var(--ink-soft); margin: 0 0 1.6rem; max-width: 34rem; }
-.hero .fineprint { color: var(--ink-faint); font-size: 0.88rem; margin: 1rem 0 0; }
-
-/* A screenshot, framed so it reads as a phone screen on either page theme. */
+/* A screen capture, shown whole, with a device corner and a hairline edge so
+   a dark screen has an edge on a dark page. No shadow. */
 .phone {
   display: block; width: 100%; height: auto;
-  border-radius: 22px;
+  aspect-ratio: 660 / 1434;
+  border-radius: var(--radius-device);
   border: 1px solid var(--shot-frame);
-  box-shadow: 0 18px 44px -12px var(--shot-shadow);
-  background: #100b25;
+  background: var(--surface-raised);
 }
-.phone-hold { max-width: 300px; margin: 0 auto; }
 
-/* The two alternating image+text feature sections. */
-.counts { background: var(--band); border-block: 1px solid var(--line); }
-/* Second one runs on the page ground so the two bands do not merge into
-   one slab, and its phone sits on the opposite side. */
-.counts.plain { background: transparent; border-block: 0; }
-.counts-grid { display: grid; gap: 2rem; align-items: center; }
-.counts h2 { font-size: clamp(1.9rem, 6.5vw, 2.6rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 1rem; text-wrap: balance; }
-.counts p { color: var(--ink-soft); margin: 0 0 1rem; max-width: 34rem; }
+/* Hero */
+.hero { padding-block: 1rem 3rem; }
+.hero-grid { display: grid; gap: 2.5rem; align-items: center; }
+.hero h1 {
+  font: var(--type-title);
+  letter-spacing: -0.025em;
+  margin: 1.1rem 0 1rem; text-wrap: balance;
+}
+/* The headline breaks between its three sentences, never inside one. */
+.hero h1 span { white-space: nowrap; }
+.hero .lede { font: var(--type-prose); color: var(--ink-soft); margin: 0 0 1.6rem; max-width: 34rem; }
+.hero .fineprint { color: var(--ink-faint); font: var(--type-meta); margin: 1rem 0 0; }
+.hero-phone { max-width: 270px; margin: 0 auto; }
+
+/* The two statement sections: a phone beside a heading, copy and a pull
+   quote. The first is the page's one bold band. */
+.statement-grid { display: grid; gap: 2.25rem; align-items: center; }
+.statement h2 { font: var(--type-title-small); letter-spacing: -0.02em; margin: 0 0 1rem; text-wrap: balance; }
+.statement p { color: var(--ink-soft); font: var(--type-prose); margin: 0 0 1rem; max-width: 34rem; }
+.statement-phone { max-width: 280px; margin: 0 auto; width: 100%; }
+.band { background: var(--band); border-block: 1px solid var(--line); }
+.bold .statement-phone { max-width: 340px; }
 .pull {
-  margin: 1.4rem 0 0; padding: 0.9rem 1.15rem;
-  border-left: 3px solid var(--brand);
-  font-family: var(--display); font-size: 1.06rem; color: var(--ink);
+  margin: 1.5rem 0 0; padding: 0.2rem 0 0.2rem 1.15rem;
+  border-left: 3px solid var(--line-strong);
+  font: var(--type-section); color: var(--ink);
+  max-width: 34rem;
 }
-.pull cite { display: block; margin-top: 0.35rem; font: 600 0.82rem var(--ui); color: var(--ink-faint); font-style: normal; }
+.pull cite { display: block; margin-top: 0.5rem; font: var(--type-meta); color: var(--ink-soft); font-style: normal; }
 
-/* Showcase */
-.section-title,
-.showcase h2 { font-size: clamp(1.7rem, 5.5vw, 2.1rem); margin: 0 0 2rem; letter-spacing: -0.01em; }
-.shots { display: grid; gap: 2.75rem; }
-/* Preserve each native screenshot in full, including its navigation. */
-.shot .phone { aspect-ratio: 660 / 1434; object-fit: contain; }
-.shot h3 { font-size: 1.16rem; margin: 1.1rem 0 0.4rem; }
-.shot p { color: var(--ink-soft); margin: 0; font-size: 0.97rem; }
+/* What builds up over time: six tiles in a ruled grid. On phones each tile
+   is a row, a small phone beside its name and line. */
+.tiles { display: grid; margin: 1.5rem 0 0; }
+.tile {
+  display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0 1.1rem; align-items: center;
+  margin: 0; padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.tile:last-child { border-bottom: 0; padding-bottom: 0; }
+.tile:first-child { padding-top: 0; }
+.tile figcaption h3 { margin: 0 0 0.25rem; font: var(--type-item); color: var(--ink); }
+.tile figcaption p { margin: 0; color: var(--ink-soft); font: var(--type-body); }
 
-/* Why Coastory */
-.pillars { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
-.pillar { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.2rem 1.25rem; }
-.pillar h3 { font-size: 1.05rem; margin: 0 0 0.35rem; }
-.pillar p { margin: 0; color: var(--ink-soft); font-size: 0.97rem; }
+/* Take it with you: real exported images, not phone screens, so no phone
+   frame. The tier board stops above its B band (founder, 2026-10-20) and
+   fades out rather than ending on a hard edge. */
+.share h2 { font: var(--type-section); letter-spacing: -0.01em; margin: 0 0 0.5rem; }
+.share .intro { color: var(--ink-soft); font: var(--type-prose); margin: 0 0 2rem; max-width: 34rem; }
+.share-grid { display: grid; gap: 2.25rem; }
+/* On phones every figure starts at the column's left edge, so the three
+   captions share one edge; from 46rem the grid centers them. The tier board
+   takes its full track (capped at 46rem), so it holds its size before its
+   image loads. */
+.share-item { margin: 0; max-width: 300px; justify-self: start; }
+.share-item.share-wide { width: 100%; max-width: 46rem; }
+.share-item img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--shot-frame);
+}
+.share-wide img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+.share-item figcaption { margin-top: 0.9rem; color: var(--ink-soft); font: var(--type-body); }
+.share-item figcaption strong { color: var(--ink); font: var(--type-item); }
 
-/* Beta */
-.beta { background: var(--band); border-block: 1px solid var(--line); }
-.beta h2 { font-size: clamp(1.8rem, 6vw, 2.4rem); margin: 0 0 0.9rem; letter-spacing: -0.015em; }
-.beta .intro { color: var(--ink-soft); max-width: 38rem; margin: 0 0 2rem; }
-.beta-cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
-.beta-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.35rem 1.4rem; }
-.beta-card h3 { font-size: 1.15rem; margin: 0 0 0.15rem; }
-.beta-card .plat { color: var(--ink-faint); font-size: 0.85rem; margin: 0 0 1rem; }
-.beta-card .btn { width: 100%; }
-.steps { margin: 1rem 0 0; padding: 0 0 0 1.15rem; color: var(--ink-faint); font-size: 0.88rem; }
-.steps li { margin: 0.35rem 0; }
-.steps a { color: var(--link); }
-.beta .after { color: var(--ink-faint); font-size: 0.9rem; margin: 1.5rem 0 0; max-width: 38rem; }
+/* The Coaster Catalog */
+.catalog-intro { display: grid; gap: 1.5rem 3rem; }
+.catalog-intro p { margin: 0; }
+.catalog-line { color: var(--ink-soft); font: var(--type-prose); max-width: 34rem; }
+.catalog-intro .catalog-counts { margin-top: 1rem; color: var(--ink-soft); font: var(--type-prose); }
+.catalog-counts strong { color: var(--ink); font: var(--type-figure); letter-spacing: -0.01em; }
+.example-links { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.example-links li { border-bottom: 1px solid var(--line); }
+.example-links a {
+  display: flex; flex-direction: column; justify-content: center; min-height: 64px; padding: 0.65rem 0;
+  color: var(--ink); text-decoration: none;
+}
+.example-links strong { font: var(--type-item); }
+.example-links span { color: var(--ink-soft); font: var(--type-meta); }
+.example-links a:hover strong { color: var(--brand-ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.18em; }
+.catalog-intro .btn { justify-self: start; margin-top: 0.5rem; }
 
-/* Closing invitation */
-.closer { text-align: center; padding-block: 4rem 4.5rem; }
-.closer h2 { font-size: clamp(2rem, 7vw, 2.9rem); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 0.7rem; text-wrap: balance; }
-.closer p { color: var(--ink-soft); margin: 0 auto 1.6rem; max-width: 30rem; }
-.closer .cta-row { justify-content: center; }
+/* Why Coastory: four points as a ruled list, no cards. */
+.why-list { display: grid; margin: 1.5rem 0 0; }
+.why-list > div { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+.why-list dt { margin: 0 0 0.3rem; font: var(--type-item); color: var(--ink); }
+.why-list dd { margin: 0; color: var(--ink-soft); font: var(--type-body); max-width: 34rem; }
 
-/* --------------------------------------------------------------- wider up */
+/* Closing: the shared invitation, with the TestFlight steps as small print
+   and the report-an-issue line under it. */
+/* It follows Why Coastory, whose own bottom padding is the gap. */
+.closing { padding-block: 0.5rem 4rem; }
+.closing .app-invitation { padding: 1.6rem 1.5rem 1.6rem; }
+.closing .app-invitation > p { max-width: 38rem; }
+.app-steps { display: grid; gap: 1rem 2.5rem; margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.app-steps h3 { margin: 0 0 0.2rem; font: var(--type-label); color: var(--ink); }
+.app-steps p,
+.app-steps ol { margin: 0; color: var(--ink-soft); font: var(--type-meta); }
+.app-steps ol { padding-left: 1.15rem; }
+.app-steps li + li { margin-top: 0.25rem; }
+.closing .after { margin: 1.4rem 0 0; max-width: 38rem; color: var(--ink-soft); font: var(--type-meta); }
+
+/* ---------------------------------------------------------------- wider up */
 
 @media (min-width: 46rem) {
-  .hero { padding-block: 2rem 3rem; }
-  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 3rem; }
-  .phone-hold { max-width: 320px; }
-  .counts-grid { grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; }
-  .counts-grid .phone-hold { order: -1; }
-  .counts.plain .counts-grid .phone-hold { order: 0; }
-  .pillars { grid-template-columns: repeat(2, 1fr); }
-  .shots { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  /* Align image / heading / body across the three columns, so a heading that
-     wraps to two lines doesn't push its own body text out of step. */
-  @supports (grid-template-rows: subgrid) {
-    .shots { grid-template-rows: auto auto auto; }
-    .shot { display: grid; grid-row: span 3; grid-template-rows: subgrid; gap: 0; }
-    .shot h3 { align-self: start; }
-  }
   .section { padding-block: 4.5rem; }
+  .hero { padding-block: 2rem 4rem; }
+  .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 3rem; }
+  .hero-phone { max-width: 300px; }
+  .statement-grid { grid-template-columns: 0.9fr 1.1fr; gap: 3.5rem; }
+  .bold .statement-phone { order: -1; }
+  .plain .statement-grid { grid-template-columns: 1.1fr 0.9fr; }
+
+  /* Three columns, two rows, a rule between the rows and none around them.
+     Each tile's phone is capped below the hero's and the Racer's. */
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 0; }
+  .tile {
+    grid-template-columns: none; grid-template-rows: auto auto; align-content: start; align-items: start;
+    padding: 2rem 2rem 2rem 0;
+  }
+  .tile:nth-child(3n) { padding-right: 0; }
+  .tile:nth-child(-n+3) { padding-top: 0; }
+  .tile:nth-child(n+4) { border-bottom: 0; padding-bottom: 0; }
+  .tile picture { max-width: 14rem; margin: 0 0 1.1rem; }
+  /* Each tile spans three rows of the grid (phone, name, line) through two
+     nested subgrids, the tile's and its caption's, so the names and the lines
+     each start on one line across a row even when a name wraps. */
+  @supports (grid-template-rows: subgrid) {
+    .tiles { grid-template-rows: repeat(6, auto); }
+    .tile { grid-row: span 3; grid-template-rows: subgrid; }
+    .tile figcaption { display: grid; grid-row: span 2; grid-template-rows: subgrid; }
+  }
+
+  .share h2, .share .intro { text-align: center; }
+  .share .intro { margin-inline: auto; }
+  .share-grid { grid-template-columns: repeat(2, minmax(0, 300px)); justify-content: center; column-gap: 3rem; }
+  .share-item { justify-self: center; }
+  .share-wide { grid-column: 1 / -1; }
+  /* The story card and the timeline are not the same height at 300 px (587
+     and 566). Each figure spans an image row and a caption row of the grid
+     (subgrid), the images sit on the image row's bottom edge, so both captions
+     start on one line. Row gaps become margins so the subgrid adds none. */
+  @supports (grid-template-rows: subgrid) {
+    .share-grid { row-gap: 0; }
+    .share-wide { margin-bottom: 2.25rem; }
+    .share-item:not(.share-wide) { display: grid; grid-row: span 2; grid-template-rows: subgrid; width: 100%; }
+    .share-item:not(.share-wide) img { align-self: end; }
+  }
+
+  .catalog-intro { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .catalog-intro .btn { grid-column: 1; grid-row: 2; align-self: start; margin-top: 0; }
+  .example-links { grid-column: 2; grid-row: 1 / span 2; }
+
+  .why-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+  .why-list > div { padding: 1.25rem 0 1.5rem; }
+
+  .closing .app-invitation { padding: 2rem 2.25rem; }
+  .app-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Narrow phones: the doc pages' four nav links overflow a 375px header and the
-   last one clips off-screen. Stack the nav under the wordmark rather than
-   shrinking the type — it keeps every link reachable and the tap targets full
-   size. The landing page's single CTA does not need this, hence :not(). */
+/* Narrow phones: the brand takes the first line and the nav the second, so
+   every link keeps a full-size tap target. One breakpoint for every header
+   (catalog.css wraps its own nav at the same width): 35rem, the widest
+   width at which the catalog's five links no longer fit beside the mark. */
+@media (max-width: 35rem) {
+  .site-header:not(.catalog-header) { flex-wrap: wrap; }
+  .site-header:not(.catalog-header) nav { width: 100%; justify-content: flex-start; gap: 0 1.1rem; }
+  .site-header nav a.nav-btn { margin-left: auto; }
+}
+
 @media (max-width: 30rem) {
-  .site-header:not(.header-cta) { flex-direction: column; align-items: flex-start; gap: 0.55rem; }
-  .site-header:not(.header-cta) nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
-  .header-cta .nav-btn { padding: 0.55rem 1rem; font-size: 0.92rem; min-height: 44px; }
   .cta-row .btn { width: 100%; }
+  .app-actions { flex-direction: column; align-items: stretch; }
+  .app-actions a { width: 100%; }
+  .closing .app-invitation { padding: 1.3rem 1.15rem 1.4rem; }
 }
-
-.nav-btn {
-  display: inline-flex; align-items: center; min-height: 44px;
-  padding: 0.55rem 1.1rem; border-radius: 999px;
-  background: var(--brand); color: #241c16;
-  font: 700 0.95rem var(--ui); text-decoration: none; white-space: nowrap;
-}
-.nav-btn:hover { background: #ff6d53; color: #241c16; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
