@@ -3,6 +3,7 @@
 The public website for Coastory, served by GitHub Pages at **https://coastory.app**.
 
 - `/` — landing page (`index.html`, hand-written)
+- `/get` — permanent QR download page; both store choices always available
 - `/privacy` — Privacy Policy, rendered from the app repo
 - `/terms` — Terms of Service, rendered from the app repo
 - `/delete-account` — Google Play's required web account-deletion resource (hand-written)
@@ -43,7 +44,7 @@ The public website for Coastory, served by GitHub Pages at **https://coastory.ap
   read as the same product as the app, and they are preloaded on the landing
   page.
 
-The landing page carries **no JavaScript at all**. Keep it that way: if a change needs a script, question the change.
+The homepage carries **no JavaScript at all**. Keep it that way. The focused `/get` route is a deliberate exception: `get/device.js` adds only a local device hint to highlight a store link. It performs no redirects, tracking, storage, or network calls; both download links work without JavaScript.
 
 ## Updating the legal pages
 
@@ -69,3 +70,27 @@ preload list, so the domain must answer HTTPS on the first request — Pages doe
 this once "Enforce HTTPS" is on and the certificate has been issued.
 
 DNS lives at Dynadot (see the CSTRY-420 notes in the app repo for the records).
+
+
+## QR download page
+
+Share **https://coastory.app/get**. GitHub Pages normalizes this directory route to `/get/`; direct visits and refreshes work without a client-side router. Keep the QR destination permanent and free of tracking parameters.
+
+- `get/index.html`: self-contained download entry with the existing app identity and real sample-rider preview.
+- `get/get.css`: scoped layout; shared colors and fonts come from `style.css`.
+- `get/device.js`: iPhone/iPad and Android convenience hints; both links remain in a stable keyboard order and unknown devices receive equal choices. User-agent detection is a heuristic, never an access rule.
+- `assets/badges/`: locally served, unmodified official store badges and provenance.
+- `assets/qr/coastory-get.svg` and `.png`: print and digital QR assets; reproduction instructions in that directory.
+
+No website analytics infrastructure was present when this page shipped. There is no page-view or click tracking, and no new tracking provider was added. The QR URL identifies the landing destination, not a particular card or visitor.
+
+Verification (no package installation or site build needed):
+
+```sh
+node --check get/device.js
+node --test tests/get-device.test.cjs
+python3 -m py_compile build.py tools/generate_get_qr.py
+python3 -m http.server 8774 --bind 127.0.0.1
+```
+
+Check `/get` and `/get/`, small/large phones and desktop, light/dark themes, visible keyboard focus, and both store links. The legal renderer remains a separate workflow: do not regenerate legal pages as part of a download-page change. Publish through this repository’s current Pages source after confirming its settings; do not import a different publishing script from an unpublished branch.

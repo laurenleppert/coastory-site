@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T06:25:09Z",
+  "title": "Design System: Coastory",
+  "extensions": {
+    "breakpoints": [
+      { "name": "gutter", "value": "41rem" },
+      { "name": "get-two-column", "value": "48rem" }
+    ],
+    "motion": [
+      { "name": "action-color", "value": "background-color 0.15s ease, border-color 0.15s ease", "purpose": "Shared action hover feedback." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The shared coral action pill.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Get Coastory</a>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:.6rem 1.35rem; border-radius:999px; background:var(--brand); color:var(--on-brand); font:700 1rem/1.2 Nunito,sans-serif; text-decoration:none; transition:background-color .15s ease; } .ds-btn-primary:hover { background:var(--brand-hover); color:var(--on-brand); } .ds-btn-primary:focus-visible { outline:3px solid var(--brand-ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Secondary action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The shared outlined action pill.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Learn more</a>",
+      "css": ".ds-btn-secondary { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:.6rem 1.35rem; border:1.5px solid var(--line-strong); border-radius:999px; background:transparent; color:var(--ink); font:700 1rem/1.2 Nunito,sans-serif; text-decoration:none; transition:border-color .15s ease; } .ds-btn-secondary:hover { border-color:var(--brand); color:var(--ink); } .ds-btn-secondary:focus-visible { outline:3px solid var(--brand-ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Current navigation link",
+      "kind": "nav",
+      "description": "A readable link with a coral current-page rule.",
+      "html": "<a class=\"ds-nav-current\" href=\"#\" aria-current=\"page\">The app</a>",
+      "css": ".ds-nav-current { display:inline-flex; align-items:center; min-height:44px; padding:.5rem .1rem; border-bottom:2px solid var(--brand); color:var(--ink); font:800 1rem/1.65 Nunito,sans-serif; text-decoration:none; } .ds-nav-current:hover { color:var(--brand-ink); } .ds-nav-current:focus-visible { outline:3px solid var(--brand-ink); outline-offset:3px; }"
+    },
+    {
+      "name": "Raised invitation",
+      "kind": "card",
+      "description": "A single bordered surface without a shadow.",
+      "html": "<div class=\"ds-invitation\">Your story continues here.</div>",
+      "css": ".ds-invitation { padding:1.3rem 1.5rem 1.4rem; border:1px solid var(--line); border-radius:var(--radius-panel); background:var(--surface-raised); color:var(--ink); font:600 1.5rem/1.2 Fraunces,Georgia,serif; }"
+    },
+    {
+      "name": "Selected store choice",
+      "kind": "custom",
+      "description": "The surrounding link treatment for an inferred matching store; official badge artwork stays in the page.",
+      "html": "<a class=\"ds-store-selected\" href=\"#\">App Store badge area</a>",
+      "css": ".ds-store-selected { display:inline-flex; align-items:center; justify-content:center; min-width:196px; min-height:76px; padding:12px 16px; border:2px solid var(--brand-ink); border-radius:var(--radius-panel); background:var(--band); color:var(--ink); font:700 1rem/1.2 Nunito,sans-serif; text-decoration:none; } .ds-store-selected:hover { background:var(--band); } .ds-store-selected:focus-visible { outline:3px solid var(--brand-ink); outline-offset:2px; }"
+    }
+  ],
+  "narrative": {
+    "overview": "The website uses the app's own cream, plum, coral, and teal palette and its two typefaces. Warm surfaces and a restrained editorial serif give the rider's history space; clear Nunito text keeps actions and details easy to scan. Real app captures carry the product imagery.",
+    "dos": [
+      "Do use the existing CSS custom properties and self-hosted Nunito/Fraunces faces when extending the website.",
+      "Do preserve real app captures and legible light and dark states."
+    ],
+    "donts": [
+      "Don't put white text on the coral action fill or use the raw teal accent as small text on cream; the existing ink and link variants address contrast."
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+/* A focused download page, extending the existing Coastory theme. */
+.get-page {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: visible;
+}
+.get-page ::selection { background: var(--brand); color: var(--on-brand); }
+.get-main {
+  width: min(100%, 68rem);
+  margin: auto;
+  padding: 2rem 1.25rem;
+  display: grid;
+  align-items: center;
+  gap: 2.5rem;
+}
+.get-copy { text-align: center; }
+.get-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink);
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.get-brand img { width: 56px; height: 56px; border-radius: var(--radius-panel); }
+.get-copy h1 {
+  margin: 1.75rem 0 1rem;
+  font: 600 clamp(2.5rem, 5.8vw, 4rem)/1.06 var(--display);
+  letter-spacing: -0.025em;
+}
+.get-intro {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+.get-reassurance {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.get-stores {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.get-store {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 196px;
+  min-height: 76px;
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-panel);
+  text-decoration: none;
+}
+.get-store img { display: block; height: 48px; width: auto; max-width: 100%; }
+.get-store:hover { background: var(--band); }
+html[data-platform="ios"] #app-store,
+html[data-platform="android"] #google-play {
+  background: var(--band);
+  border-color: var(--brand-ink);
+}
+.get-store:focus-visible { outline-offset: 2px; border-radius: var(--radius-panel); }
+.get-availability {
+  max-width: 30rem;
+  margin: 0.75rem auto 0;
+  color: var(--ink-soft);
+  font: var(--type-small);
+}
+.get-preview { width: min(60%, 220px); margin: 0 auto; }
+.get-preview picture { overflow: hidden; border-radius: var(--radius-device); border: 1px solid var(--shot-frame); }
+.get-preview img { display: block; width: 100%; height: auto; }
+.get-preview figcaption {
+  margin-top: 1rem;
+  color: var(--ink-soft);
+  text-align: center;
+  font: var(--type-small);
+}
+.get-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1.25rem;
+  padding: 0.5rem 1.25rem max(1rem, env(safe-area-inset-bottom));
+  font: var(--type-meta);
+}
+.get-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-soft);
+}
+.get-footer a:hover { color: var(--brand-ink); }
+@media (min-width: 48rem) {
+  .get-main { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 3rem; padding: 3rem 2.5rem; }
+  .get-copy { text-align: left; }
+  .get-brand, .get-stores { justify-content: flex-start; }
+  .get-brand img { width: 64px; height: 64px; }
+  .get-preview { width: min(100%, 280px); }
+  .get-availability { margin-left: 0; }
+}
+@media (max-width: 27rem) {
+  .get-stores { flex-direction: column; gap: 0.25rem; }
+  .get-store { width: 220px; }
+  .get-main { padding-top: 1.5rem; gap: 2rem; }
+  .get-copy h1 { margin-top: 1.25rem; }
+}
